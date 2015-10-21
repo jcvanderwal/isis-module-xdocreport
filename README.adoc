@@ -1,0 +1,7 @@
+= isis-module-xdocreport
+
+This module, intended for use with [Apache Isis](http://isis.apache.org), provides a mail-merge capability of input data into an MS Word `.docx` or OpenOffice `.odt` templates.  The generated output document is either Word `.docx`, OpenOffice `.odt` or Acrobat `.pdf`.
+
+The module consists of a single domain service, `XdocreportService`. This provides an API to merge a template with a Pojo. Freemarker or Velocity is used as the template language.
+
+The template engine is based on Xdocreport. See for more information and samples the [Xdocreport repository on Github](https://github.com/opensagres/xdocreport).
