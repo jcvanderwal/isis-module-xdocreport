@@ -21,15 +21,15 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.assertj.core.api.Assertions;
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 
-import org.isisaddons.module.xdocreport.fixture.dom.XdocreportDemoObject;
-import org.isisaddons.module.xdocreport.fixture.dom.XdocreportDemoObjects;
-import org.isisaddons.module.xdocreport.fixture.scripts.scenarios.XdocreportDemoObjectsFixture;
-
+import org.isisaddons.module.xdocreport.fixture.dom.Order;
+import org.isisaddons.module.xdocreport.fixture.dom.Orders;
+import org.isisaddons.module.xdocreport.fixture.scripts.XdocreportModuleAppSetupFixture;
 
 public class XdocreportDemoObjectsTest extends XdocreportModuleIntegTest {
 
@@ -37,31 +37,26 @@ public class XdocreportDemoObjectsTest extends XdocreportModuleIntegTest {
     FixtureScripts fixtureScripts;
 
     @Inject
-    private XdocreportDemoObjects xdocreportDemoObjects;
+    private Orders orders;
 
     @Before
     public void setUpData() throws Exception {
-        fixtureScripts.runFixtureScript(new XdocreportDemoObjectsFixture(), null);
+        fixtureScripts.runFixtureScript(new XdocreportModuleAppSetupFixture(), null);
     }
-
 
     @Test
     public void listAll() throws Exception {
-
-        final List<XdocreportDemoObject> all = wrap(xdocreportDemoObjects).listAll();
-        Assertions.assertThat(all.size()).isEqualTo(3);
-        
-        XdocreportDemoObject xdocreportDemoObject = wrap(all.get(0));
-        Assertions.assertThat(xdocreportDemoObject.getName()).isEqualTo("Foo");
+        final List<Order> all = wrap(orders).listAll();
+        Assertions.assertThat(all.size()).isEqualTo(1);
     }
-    
+
     @Test
     public void create() throws Exception {
 
-        wrap(xdocreportDemoObjects).create("Faz");
-        
-        final List<XdocreportDemoObject> all = wrap(xdocreportDemoObjects).listAll();
-        Assertions.assertThat(all.size()).isEqualTo(4);
+        wrap(orders).create("1234", "John Doe", new LocalDate(2015, 1, 1), "Need to sign personally");
+
+        final List<Order> all = wrap(orders).listAll();
+        Assertions.assertThat(all.size()).isEqualTo(2);
     }
 
 }
